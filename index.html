@@ -53,21 +53,16 @@ top:120px;
 transition:0.15s linear;
 }
 
-.heart{
-position:absolute;
-font-size:30px;
-animation:float 2s linear forwards;
+#result{
+display:none;
+flex-direction:column;
+align-items:center;
 }
 
-@keyframes float{
-0%{
-transform:translateY(0);
-opacity:1;
-}
-100%{
-transform:translateY(-400px);
-opacity:0;
-}
+img{
+width:300px;
+margin-top:20px;
+border-radius:20px;
 }
 
 </style>
@@ -75,12 +70,24 @@ opacity:0;
 
 <body>
 
-<h1>나 좋아해?</h1>
+<div id="question">
 
-<div class="container" id="container">
+<h1>나랑 결혼할래?</h1>
+
+<div class="container">
 
 <button id="yes">예 ❤️</button>
 <button id="no">아니요</button>
+
+</div>
+
+</div>
+
+<div id="result">
+
+<h1>헤헤 결혼이다 ❤️</h1>
+
+<img src="cat.jpg">
 
 </div>
 
@@ -117,31 +124,9 @@ noBtn.style.top=currentTop+moveY+"px"
 
 document.getElementById("yes").onclick=()=>{
 
-for(let i=0;i<30;i++){
+document.getElementById("question").style.display="none"
 
-const heart=document.createElement("div")
-
-heart.innerHTML="❤️"
-
-heart.className="heart"
-
-heart.style.left=Math.random()*window.innerWidth+"px"
-
-heart.style.top=window.innerHeight+"px"
-
-heart.style.fontSize=Math.random()*40+20+"px"
-
-document.body.appendChild(heart)
-
-setTimeout(()=>{
-heart.remove()
-},2000)
-
-}
-
-setTimeout(()=>{
-alert("나도 좋아해 😆❤️")
-},500)
+document.getElementById("result").style.display="flex"
 
 }
 
