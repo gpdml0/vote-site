@@ -42,6 +42,8 @@ background:#ff4d6d;
 color:white;
 position:absolute;
 left:120px;
+top:120px;
+transition:0.2s;
 }
 
 #no{
@@ -55,14 +57,35 @@ transition:0.15s linear;
 
 #result{
 display:none;
-flex-direction:column;
+justify-content:center;
 align-items:center;
+height:100vh;
 }
 
 img{
-width:300px;
-margin-top:20px;
+width:350px;
 border-radius:20px;
+}
+
+.heart{
+position:absolute;
+color:red;
+font-size:24px;
+animation:explode 1s forwards;
+}
+
+@keyframes explode{
+
+0%{
+transform:scale(1);
+opacity:1;
+}
+
+100%{
+transform:translate(var(--x),var(--y)) scale(2);
+opacity:0;
+}
+
 }
 
 </style>
@@ -85,8 +108,6 @@ border-radius:20px;
 
 <div id="result">
 
-<h1>헤헤 결혼이다 ❤️</h1>
-
 <img src="cat.jpg">
 
 </div>
@@ -94,6 +115,9 @@ border-radius:20px;
 <script>
 
 const noBtn=document.getElementById("no")
+const yesBtn=document.getElementById("yes")
+
+let yesScale=1
 
 document.addEventListener("mousemove",(e)=>{
 
@@ -112,20 +136,39 @@ if(distance<120){
 const moveX=-dx*0.8
 const moveY=-dy*0.8
 
-const currentLeft=noBtn.offsetLeft
-const currentTop=noBtn.offsetTop
+noBtn.style.left=noBtn.offsetLeft+moveX+"px"
+noBtn.style.top=noBtn.offsetTop+moveY+"px"
 
-noBtn.style.left=currentLeft+moveX+"px"
-noBtn.style.top=currentTop+moveY+"px"
+yesScale+=0.05
+yesBtn.style.transform="scale("+yesScale+")"
 
 }
 
 })
 
-document.getElementById("yes").onclick=()=>{
+yesBtn.onclick=()=>{
+
+for(let i=0;i<40;i++){
+
+const heart=document.createElement("div")
+
+heart.className="heart"
+heart.innerHTML="❤️"
+
+heart.style.left=(window.innerWidth/2)+"px"
+heart.style.top=(window.innerHeight/2)+"px"
+
+const x=(Math.random()*800-400)+"px"
+const y=(Math.random()*600-300)+"px"
+
+heart.style.setProperty("--x",x)
+heart.style.setProperty("--y",y)
+
+document.body.appendChild(heart)
+
+}
 
 document.getElementById("question").style.display="none"
-
 document.getElementById("result").style.display="flex"
 
 }
